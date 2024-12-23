@@ -133,7 +133,8 @@ class Stream:
 
     #: A regular expression pattern matching everything what can be
     #: considered plain text.
-    _special = set([ctrl.ESC, ctrl.CSI_C1, ctrl.NUL, ctrl.DEL, ctrl.OSC_C1])
+    _special = set(chr(i) for i in range(0x20)) # All control characters.
+    _special.update([ctrl.CSI_C1, ctrl.DEL, ctrl.OSC_C1])
     _special.update(basic)
     _text_pattern = re.compile(
         "[^" + "".join(map(re.escape, _special)) + "]+")

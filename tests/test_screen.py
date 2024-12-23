@@ -1583,3 +1583,9 @@ def test_screen_set_icon_name_title():
 
     screen.set_title(text)
     assert screen.title == text
+
+def test_soh_stx():
+    screen = pyte.Screen(6, 2)
+    stream = pyte.Stream(screen)
+    stream.feed('hello\r\n\x01yyy\x02zzz')
+    assert screen.display == ['hello ', 'yyyzzz']
